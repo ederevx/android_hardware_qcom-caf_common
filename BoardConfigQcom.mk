@@ -2,13 +2,13 @@ include hardware/qcom-caf/common/qcom_boards.mk
 include hardware/qcom-caf/common/qcom_defs.mk
 
 UM_3_18_HAL_FAMILY := msm8996
-UM_4_4_HAL_FAMILY := msm8998
 
 ifeq (,$(TARGET_ENFORCES_QSSI))
 UM_3_18_HAL_FAMILY += msm8937 msm8953
-UM_4_4_HAL_FAMILY += sdm660
+UM_4_4_HAL_FAMILY := sdm660 msm8998
 else
 UM_4_9_LEGACY_FAMILY := msm8937 msm8953
+UM_4_14_LEGACY_FAMILY := msm8998
 UM_4_19_LEGACY_FAMILY := sdm660
 endif
 
@@ -32,6 +32,7 @@ LEGACY_UM_PLATFORMS := \
 
 QSSI_SUPPORTED_PLATFORMS := \
     $(UM_4_9_LEGACY_FAMILY) \
+    $(UM_4_14_LEGACY_FAMILY) \
     $(UM_4_19_LEGACY_FAMILY) \
     $(UM_4_9_FAMILY) \
     $(UM_4_14_FAMILY) \
@@ -151,6 +152,9 @@ else ifneq ($(filter $(UM_4_9_LEGACY_FAMILY),$(TARGET_BOARD_PLATFORM)),)
     QCOM_HARDWARE_VARIANT := msm8953
 else ifneq ($(filter $(UM_4_4_HAL_FAMILY),$(TARGET_BOARD_PLATFORM)),)
     MSM_VIDC_TARGET_LIST := $(UM_4_4_HAL_FAMILY)
+    QCOM_HARDWARE_VARIANT := msm8998
+else ifneq ($(filter $(UM_4_14_LEGACY_FAMILY),$(TARGET_BOARD_PLATFORM)),)
+    MSM_VIDC_TARGET_LIST := $(UM_4_14_LEGACY_FAMILY)
     QCOM_HARDWARE_VARIANT := msm8998
 else ifneq ($(filter $(UM_4_19_LEGACY_FAMILY),$(TARGET_BOARD_PLATFORM)),)
     MSM_VIDC_TARGET_LIST := $(UM_4_19_LEGACY_FAMILY)
