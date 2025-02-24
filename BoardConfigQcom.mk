@@ -111,6 +111,7 @@ SOONG_CONFIG_qtidisplay += \
     headless \
     llvmsa \
     gralloc4 \
+    uses_gralloc1 \
     displayconfig_enabled \
     udfps \
     default \
@@ -135,6 +136,7 @@ SOONG_CONFIG_qtidisplay_drmpp ?= false
 SOONG_CONFIG_qtidisplay_headless ?= false
 SOONG_CONFIG_qtidisplay_llvmsa ?= false
 SOONG_CONFIG_qtidisplay_gralloc4 ?= false
+SOONG_CONFIG_qtidisplay_uses_gralloc1 ?= false
 SOONG_CONFIG_qtidisplay_displayconfig_enabled ?= false
 SOONG_CONFIG_qtidisplay_udfps ?= false
 SOONG_CONFIG_qtidisplay_default ?= true
@@ -244,6 +246,11 @@ endif
 # Enable Gralloc4 on UM platforms that support it
 ifneq ($(filter $(UM_4_14_FAMILY) $(UM_4_19_FAMILY) $(UM_5_4_FAMILY) $(UM_5_10_FAMILY) $(UM_5_15_FAMILY),$(TARGET_BOARD_PLATFORM)),)
     SOONG_CONFIG_qtidisplay_gralloc4 := true
+endif
+
+# Use gralloc1 legacy header arrangement on UM legacy platforms that do not support the new QSSI header arrangement
+ifneq ($(filter $(UM_4_14_LEGACY_FAMILY),$(TARGET_BOARD_PLATFORM)),)
+    SOONG_CONFIG_qtidisplay_uses_gralloc1 := true
 endif
 
 # Select AR variant of A-HAL dependencies

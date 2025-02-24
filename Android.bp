@@ -16,6 +16,23 @@ soong_config_string_variable {
     values: ["firmware_mnt", "firmware_modem"],
 }
 
+soong_config_module_type {
+    name: "gralloc_uses_gralloc1",
+    module_type: "cc_defaults",
+    config_namespace: "qtidisplay",
+    bool_variables: ["uses_gralloc1"],
+    properties: ["export_cflags"],
+}
+
+gralloc_uses_gralloc1 {
+    name: "gralloc_uses_gralloc1_defaults",
+    soong_config_variables: {
+        uses_gralloc1: {
+            export_cflags: ["-DUSE_GRALLOC1"],
+        },
+    },
+}
+
 install_symlink {
     name: "rfs_apq_gnss_hlos_symlink",
     vendor: true,
